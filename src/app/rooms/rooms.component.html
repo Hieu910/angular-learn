@@ -1,0 +1,47 @@
+<p>rooms works! Welcome to {{hotelName}}</p>
+<app-header/>
+<app-header/>
+<app-header/>
+<div [hidden]="hideRoom">
+  Number Of Rooms: <span [ngStyle]="{'color': rooms.availableRooms ? 'green' : 'red'}" [innerText]="numberOfRooms"></span>
+</div>
+
+<button (click)="toggle()">Toggle</button>
+
+<div *ngIf="selectedRoom">
+  {{selectedRoom | json}}
+</div>
+
+<div>
+  <button (click)="addRoom()">Add Room</button>
+  <button (click)="addPost()">Add Post</button>
+</div>
+
+<div *ngIf="hideRoom">
+    <app-rooms-list [title]="title" [roomList]="roomList" (selectedRoom)="selectRoom($event)"></app-rooms-list>
+</div>
+<h1>{{totalDownload}}</h1>
+
+<h1>Number of post: {{postCount$ | async}}</h1>
+<table>
+  <tr>
+    <th>Id</th>
+    <th>User Id</th>
+    <th>Title</th>
+    <th>Body</th>
+
+  </tr>
+  <tr *ngFor="let post of posts">
+    <td>{{post.id}}</td>
+
+        <td>{{post.userId}}</td>
+        <td>{{post.title}}</td>
+        <td>{{post.body}}</td>
+
+        <td style="display: flex;">
+          <button class="btn btn-primary" (click)="updatePost(post.id)">Update</button>
+          <button class="btn btn-primary" [routerLink]="['/posts', post.id]">Select</button>
+        </td>
+      </tr>
+</table>
+
